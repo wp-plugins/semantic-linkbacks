@@ -1,11 +1,11 @@
 <?php
 /*
  Plugin Name: Semantic-Linkbacks
- Plugin URI: https://github.com/acegiak/Semantic-Linkbacks
+ Plugin URI: https://github.com/pfefferle/wordpress-semantic-linkbacks
  Description: Semantic Linkbacks for webmentions, trackbacks and pingbacks
  Author: pfefferle & acegiak
  Author URI: http://notizblog.org/
- Version: 3.0.1
+ Version: 3.0.2
 */
 
 if (!class_exists("SemanticLinkbacksPlugin")) :
@@ -91,8 +91,15 @@ class SemanticLinkbacksPlugin {
       return $comment_ID;
     }
 
-    // get remote html
+    // generate target
     $target = get_permalink( $post['ID'] );
+
+    // add replytocom if present
+    if (isset($commentdata['comment_parent']) && !empty($commentdata['comment_parent'])) {
+      $target = add_query_arg(array("replytocom" => $commentdata['comment_parent']), $target);
+    }
+
+    // get remote html
     $response = wp_remote_get( esc_url_raw(html_entity_decode($source)), array('timeout' => 100) );
 
     // handle errors
