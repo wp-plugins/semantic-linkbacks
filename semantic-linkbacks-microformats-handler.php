@@ -1,5 +1,5 @@
 <?php
-if(!function_exists ("Mf2\parse")) {
+if(!class_exists("Mf2\Parser")) {
   require_once 'Mf2/Parser.php';
 }
 
@@ -63,7 +63,7 @@ class SemanticLinkbacksPlugin_MicroformatsHandler {
      * mentions
      * @link http://indiewebcamp.com/mentions
      */
-    $class_mapper["mention"]     = "mention";
+    //$class_mapper["mention"]     = "mention";
 
     /*
      * rsvp
